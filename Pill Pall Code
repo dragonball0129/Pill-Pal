@@ -1,0 +1,44 @@
+//Setting up the Pill Pal
+#include <LiquidCrystal.h>
+#include <Servo.h>
+Servo myservo;
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+
+
+void setup() {
+  lcd.begin(16, 2);
+  //LCD Code
+  lcd.print("Take pill now!");
+  //Servo Code
+  myservo.attach(6);
+  myservo.write(90);// move servos to center position -> 90°
+  //LED Code
+  pinMode(5,OUTPUT);
+}
+
+
+
+
+void loop() {
+  //LCD Code
+  lcd.setCursor(0, 1);
+  // print the number of seconds since reset:
+  lcd.print(millis() / 1000);
+ 
+  //Servo Code
+  myservo.write(90);// move servos to center position -> 90°
+  delay(100);// The servo is open for 0.1 seconds
+  myservo.write(30);// move servos to center position -> 60°
+ 
+  //LED CODE
+  digitalWrite(5,HIGH);
+  //Put in the time you would like the LED to stay on for
+  //EX: 200000 = 20 minutes
+  delay(15000); //the LED is on for 15 seconds
+  digitalWrite(5,LOW);
+  //Add in the time you would like the LED to stay off for
+  //Note: This and the time it stays on for must = the time between which you are taking your medicine
+  //Ex: 20 minutes on, (400000) 40 minutes off = 60 min between the time you are taking your medicine
+  delay(15000);// the LED is off for 15 seconds, adding up to a total of 30 seconds between each pill drop
+}
+
